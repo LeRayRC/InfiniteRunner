@@ -55,11 +55,11 @@ public class HeroController : MonoBehaviour
         if(Input.GetKey(KeyCode.W)){
             Debug.Log("Moving forward");
         }
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
+            // anim_.ResetTrigger("RollActivated");
             Debug.Log("Moving backwards");
             anim_.SetTrigger("RollActivated");
-            // anim_.ResetTrigger("RollActivated");
         }
         if (Input.GetKey(KeyCode.A))
         {
