@@ -6,6 +6,9 @@ public class HeroFunctions : MonoBehaviour
 {
     private Vector3 spawnPonint_;
     // Start is called before the first frame update
+    public Vector3 GetSpawnPoint(){
+        return spawnPonint_;
+    }
     void Start()
     {
         spawnPonint_ = transform.position;
@@ -20,5 +23,6 @@ public class HeroFunctions : MonoBehaviour
     public void MoveToSpawn()
     {
         transform.position = spawnPonint_;
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 }

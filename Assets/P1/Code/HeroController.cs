@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class HeroController : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class HeroController : MonoBehaviour
 
     public GameObject hero_;
     public GameObject deathPlane_;
+    
 
     public Vector3 dir_ = new Vector3();
     private Vector3 spawnPoint_ = new Vector3();
@@ -15,24 +18,48 @@ public class HeroController : MonoBehaviour
     public float speed_;
     public float speedForward_;
     public float jumpForce_;
+    public float gravityScale_;
+
+    [SerializeField]
+    private bool canJump_;
 
     private Rigidbody heroRb_;
+    private CapsuleCollider heroCollider_;
+    private Animator anim_;
     void Start()
     {
         spawnPoint_ = hero_.transform.position;
 
         heroRb_ = hero_.GetComponent<Rigidbody>();
+        heroCollider_ = hero_.GetComponent<CapsuleCollider>();
+        anim_ = hero_.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // RaycastHit hit;
+        if(Physics.Raycast(hero_.transform.position + (Vector3.up * heroCollider_.height * 0.5f),Vector3.down, ((heroCollider_.height * 0.5f) + 0.01f), LayerMask.GetMask("Terrain"))){
+            canJump_ = true;
+            anim_.SetBool("OnAir",false);
+            Debug.Log("On Ground!");
+        }else{
+            canJump_ = false;
+            anim_.SetBool("OnAir",true);
+            Debug.Log("On Air!");
+        }
+        Debug.DrawRay(hero_.transform.position + (Vector3.up * heroCollider_.height * 0.5f),Vector3.down*((heroCollider_.height * 0.5f) + 0.01f));
+        
+
+
         if(Input.GetKey(KeyCode.W)){
             Debug.Log("Moving forward");
         }
-        if(Input.GetKey(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("Moving backwards");
+            anim_.SetTrigger("RollActivated");
+            // anim_.ResetTrigger("RollActivated");
         }
         if (Input.GetKey(KeyCode.A))
         {
@@ -65,18 +92,26 @@ public class HeroController : MonoBehaviour
         {
             Debug.Log("Return");
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump_)
         {
             
             heroRb_.AddForce(Vector3.up * jumpForce_, ForceMode.Impulse);
             Debug.Log("Jumping");
+            
         }
 
-        hero_.transform.position += Vector3.forward * speedForward_ * Time.deltaTime;
 
         deathPlane_.transform.position = Vector3.Lerp(deathPlane_.transform.position,
                                                       new Vector3(hero_.transform.position.x,
                                                                   deathPlane_.transform.position.y,
                                                                   hero_.transform.position.z),1.0f);
+
+    }
+
+    void FixedUpdate(){
+        heroRb_.velocity = new Vector3(Vector3.forward.x * speedForward_, heroRb_.velocity.y, Vector3.forward.z * speedForward_);
+        // hero_.transform.position += Vector3.forward * speedForward_ * Time.deltaTime;
+
+        heroRb_.AddForce(Vector3.down*9.8f*gravityScale_,ForceMode.Acceleration);
     }
 }
