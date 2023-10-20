@@ -10,13 +10,18 @@ public class HeroController : MonoBehaviour
 
     public GameObject hero_;
     public GameObject deathPlane_;
-    
+    public Camera mainCamera_;
+
+    private float initFOV;
+    public float onAirFOV;
 
     public Vector3 dir_ = new Vector3();
     private Vector3 spawnPoint_ = new Vector3();
 
     public float speed_;
-    public float speedForward_;
+    private float speedForward_;
+    public float onGroundSpeedForward_;
+    public float onAirSpeedForward_;
     public float jumpForce_;
     public float gravityScale_;
 
@@ -33,6 +38,8 @@ public class HeroController : MonoBehaviour
         heroRb_ = hero_.GetComponent<Rigidbody>();
         heroCollider_ = hero_.GetComponent<CapsuleCollider>();
         anim_ = hero_.GetComponent<Animator>();
+        initFOV = mainCamera_.fieldOfView;
+        Debug.Log(initFOV + " " + onAirFOV);
     }
 
     // Update is called once per frame
@@ -42,11 +49,16 @@ public class HeroController : MonoBehaviour
         if(Physics.Raycast(hero_.transform.position + (Vector3.up * heroCollider_.height * 0.5f),Vector3.down, ((heroCollider_.height * 0.5f) + 0.01f), LayerMask.GetMask("Terrain"))){
             canJump_ = true;
             anim_.SetBool("OnAir",false);
-            Debug.Log("On Ground!");
-        }else{
+            //Debug.Log("On Ground!");
+            mainCamera_.fieldOfView = Mathf.Lerp(mainCamera_.fieldOfView, initFOV, 0.01f);
+            speedForward_ = onGroundSpeedForward_;
+        }
+        else{
             canJump_ = false;
             anim_.SetBool("OnAir",true);
-            Debug.Log("On Air!");
+            //Debug.Log("On Air!");
+            mainCamera_.fieldOfView = Mathf.Lerp(mainCamera_.fieldOfView, onAirFOV, 0.01f);
+            speedForward_ = onAirSpeedForward_;
         }
         Debug.DrawRay(hero_.transform.position + (Vector3.up * heroCollider_.height * 0.5f),Vector3.down*((heroCollider_.height * 0.5f) + 0.01f));
         
