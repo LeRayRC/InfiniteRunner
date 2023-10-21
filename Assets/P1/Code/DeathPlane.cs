@@ -5,7 +5,7 @@ using UnityEngine;
 public class DeathPlane : MonoBehaviour
 {
     // Start is called before the first frame update
-    public TerrainController tc_;
+    public ObstaclesController oc_;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +19,7 @@ public class DeathPlane : MonoBehaviour
         {
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             hf_.MoveToSpawn();
-            tc_.ResetTerrainPosition(hf_.GetSpawnPoint());
+            oc_.ResetTerrainPosition(hf_.GetSpawnPoint());
         }
     }
 }
