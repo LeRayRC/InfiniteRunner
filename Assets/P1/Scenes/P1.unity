@@ -166,7 +166,8 @@ MonoBehaviour:
   gravityScale_: 3
   changedTo: 0
   canJump_: 0
-  limitTimeStucked: 0.5
+  onRollingColliderHeight: 1
+  onRollingColliderCenter: {x: 0, y: 0.52, z: 0}
 --- !u!4 &194942994
 Transform:
   m_ObjectHideFlags: 0
@@ -195,13 +196,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclesList_:
   - {fileID: 826107423}
+  obstaclesToDestroyList_: []
   obstaclesPrefabList_:
-  - {fileID: 11400000, guid: 4fbd248dbda24434280d92d4f5a84cb0, type: 2}
-  - {fileID: 11400000, guid: 41b3deccfa2d83145bf12c889aa2596d, type: 2}
+  - {fileID: 11400000, guid: 25830b6e017a4df43b809307d233867a, type: 2}
   - {fileID: 11400000, guid: 43e83d6a5cf3c2747bedfc7409a90146, type: 2}
+  - {fileID: 11400000, guid: 41b3deccfa2d83145bf12c889aa2596d, type: 2}
   - {fileID: 11400000, guid: bc1af0671c76b9d4e8e0f5712298aeca, type: 2}
+  - {fileID: 11400000, guid: 5a7e804ab02d814418ccf4c438aed26d, type: 2}
   lastGeneratedObstacle: {fileID: 0}
   hero_: {fileID: 1971887006}
+  hollyTerrain_: {fileID: 826107423}
   moveTerrainOffset: 10
   spaceBetweenObstacles: 5
   minObstaclesBeforeChangeDirection: 8
@@ -435,6 +439,36 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3922563232975089175, guid: ee6dd9f1a3555be4281af93ea629862f, type: 3}
   m_PrefabInstance: {fileID: 3922563233793280008}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &880505443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 880505444}
+  m_Layer: 0
+  m_Name: HeroFollowCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &880505444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880505443}
+  m_LocalRotation: {x: 0.2464916, y: -0, z: -0, w: 0.96914494}
+  m_LocalPosition: {x: -0.23000002, y: 6.72, z: -6.1966324}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1971887011}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -533,6 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gc_: {fileID: 194942992}
+  followCameraTr_: {fileID: 880505444}
   crossProductOffset: 0.001
   rotateSpeed: 100
   spawnPoint: {x: 0, y: 0, z: 0}
@@ -1167,7 +1202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3922563232975089195, guid: ee6dd9f1a3555be4281af93ea629862f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.5466766
+      value: -5.16
       objectReference: {fileID: 0}
     - target: {fileID: 3922563232975089195, guid: ee6dd9f1a3555be4281af93ea629862f, type: 3}
       propertyPath: m_LocalRotation.w

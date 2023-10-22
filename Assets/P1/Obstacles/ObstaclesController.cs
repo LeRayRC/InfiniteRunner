@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
+using System.Timers;
 
 public class ObstaclesController : MonoBehaviour
 {
@@ -13,7 +13,9 @@ public class ObstaclesController : MonoBehaviour
     [HideInInspector]
     public GameObject lastGeneratedObstacle;
     public GameObject hero_;
-    public GameObject hollyTerrain_;
+    public GameObject holyTerrain_;
+    [HideInInspector]
+    public Vector3 holyTerrainInitPos;
     public float moveTerrainOffset;
     public float spaceBetweenObstacles;
     public int minObstaclesBeforeChangeDirection;
@@ -28,11 +30,15 @@ public class ObstaclesController : MonoBehaviour
     public float timerToDestroyObstacle;
     public float timeElapsed;
     public int initialObstacles;
+
     // Start is called before the first frame update
     void Start()
     {
         InitObstacles();
+        holyTerrainInitPos = holyTerrain_.transform.position;
+
     }
+
 
     // Update is called once per frame
     void Update()
@@ -58,6 +64,10 @@ public class ObstaclesController : MonoBehaviour
         // }
     }
 
+   
+
+    
+
     public Transform GetFurthestTerrain(){
         Vector3 furthest_position = Vector3.zero;
         int furthest_index = 0;
@@ -76,7 +86,7 @@ public class ObstaclesController : MonoBehaviour
             Destroy(obstaclesList_[i],0.0f);
         }
         obstaclesList_ = new List<GameObject>();
-        obstaclesList_.Add(hollyTerrain_);
+        obstaclesList_.Add(holyTerrain_);
 
         for(int i=0;i<obstaclesToDestroyList_.Count;i++){
             Destroy(obstaclesToDestroyList_[i].gameObject,0.0f);

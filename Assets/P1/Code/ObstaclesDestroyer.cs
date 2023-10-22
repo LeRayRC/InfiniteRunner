@@ -21,6 +21,8 @@ public class ObstaclesDestroyer : MonoBehaviour
                         ob_.obstaclesToDestroyList_.Add(other.gameObject);
                     }
                 }
+            }else{
+                
             }
         }else{
             // Debug.Log("Collision with " + other.gameObject.name);

@@ -2,22 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeathPlane : MonoBehaviour
+public class PlayerKiller : MonoBehaviour
 {
-    // Start is called before the first frame update
     public ObstaclesController oc_;
     public CameraController cc_;
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.name == "Hero")
-        {   
-            
+    // Start is called before the first frame update
+    public void OnTriggerEnter(Collider other){
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player")){
+            Debug.Log("Player hit!");
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             hf_.MoveToSpawn();
             cc_.MoveToSpawn();

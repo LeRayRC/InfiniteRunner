@@ -169,11 +169,12 @@ public class HeroController : MonoBehaviour
                                hero_.transform.position + Vector3.up * heroCollider_.height*0.65f,
                                heroCollider_.radius * 0.9f, hero_.transform.forward,out hit, 0.1f, LayerMask.GetMask("ObstaclePart"));
 
-        }
-        if(hit.collider != null){
-            Debug.Log("Colliding with " + hit.collider.gameObject.name);
-            heroRb_.velocity = new Vector3(0.0f, heroRb_.velocity.y, 0.0f);
-
+            if(hit.collider != null){
+                Debug.Log("Colliding with " + hit.collider.gameObject.name);
+                heroRb_.velocity = new Vector3(0.0f, heroRb_.velocity.y, 0.0f);
+            }else{
+                heroRb_.velocity = new Vector3(hero_.transform.forward.x * speedForward_, heroRb_.velocity.y, hero_.transform.forward.z * speedForward_);
+            }
         }else{
             heroRb_.velocity = new Vector3(hero_.transform.forward.x * speedForward_, heroRb_.velocity.y, hero_.transform.forward.z * speedForward_);
 
