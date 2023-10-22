@@ -22,6 +22,7 @@ public class HeroFunctions : MonoBehaviour
 
     public void MoveToSpawn()
     {
+        transform.rotation = Quaternion.Euler(0.0f,0.0f,0.0f);
         transform.position = spawnPonint_;
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }

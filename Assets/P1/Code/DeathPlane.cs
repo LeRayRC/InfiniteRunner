@@ -6,6 +6,7 @@ public class DeathPlane : MonoBehaviour
 {
     // Start is called before the first frame update
     public ObstaclesController oc_;
+    public CameraController cc_;
 
     // Update is called once per frame
     void Update()
@@ -19,7 +20,9 @@ public class DeathPlane : MonoBehaviour
         {
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             hf_.MoveToSpawn();
-            oc_.ResetTerrainPosition(hf_.GetSpawnPoint());
+            cc_.MoveToSpawn();
+            oc_.ResetTerrainPosition();
+            oc_.gameObject.GetComponent<HeroController>().changedTo = HeroController.ChangeToDir.None;
         }
     }
 }
