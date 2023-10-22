@@ -205,7 +205,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a7e804ab02d814418ccf4c438aed26d, type: 2}
   lastGeneratedObstacle: {fileID: 0}
   hero_: {fileID: 1971887006}
-  hollyTerrain_: {fileID: 826107423}
+  holyTerrain_: {fileID: 826107423}
+  holyTerrainInitPos: {x: 0, y: 0, z: 0}
   moveTerrainOffset: 10
   spaceBetweenObstacles: 5
   minObstaclesBeforeChangeDirection: 8
@@ -439,6 +440,21 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3922563232975089175, guid: ee6dd9f1a3555be4281af93ea629862f, type: 3}
   m_PrefabInstance: {fileID: 3922563233793280008}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &826107426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826107423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7e0764946a8e0c48bba90b7be4a81a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initTimer: 0
+  timeToDisappear: 5
+  timeElapsed: 0
 --- !u!1 &880505443
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +566,8 @@ Transform:
   m_LocalRotation: {x: 0.2464916, y: 0, z: 0, w: 0.96914494}
   m_LocalPosition: {x: -6.17, y: 4.7, z: -27.856632}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1312613954}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 28.54, y: 0, z: 0}
@@ -642,7 +659,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134944707}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -695,6 +712,65 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4079b2fd7341a864d82457d8330aeb05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oc_: {fileID: 194942995}
+  cc_: {fileID: 963194229}
+--- !u!1 &1312613953
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1312613954}
+  - component: {fileID: 1312613955}
+  - component: {fileID: 1312613956}
+  m_Layer: 0
+  m_Name: PlayerKiller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1312613954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312613953}
+  m_LocalRotation: {x: -0.2464916, y: -0, z: -0, w: 0.96914494}
+  m_LocalPosition: {x: 0.23000002, y: -6.53, z: 2.07}
+  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_Children: []
+  m_Father: {fileID: 963194228}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1312613955
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312613953}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1312613956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312613953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8856dfa101c664a845a8a534dabbca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   oc_: {fileID: 194942995}
@@ -1124,7 +1200,7 @@ GameObject:
   - component: {fileID: 2090621565}
   m_Layer: 0
   m_Name: ObstaclesDestroyer
-  m_TagString: Untagged
+  m_TagString: ObstacleDestroyer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

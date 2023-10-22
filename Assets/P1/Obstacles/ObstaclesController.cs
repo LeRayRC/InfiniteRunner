@@ -14,7 +14,7 @@ public class ObstaclesController : MonoBehaviour
     public GameObject lastGeneratedObstacle;
     public GameObject hero_;
     public GameObject holyTerrain_;
-    [HideInInspector]
+
     public Vector3 holyTerrainInitPos;
     public float moveTerrainOffset;
     public float spaceBetweenObstacles;

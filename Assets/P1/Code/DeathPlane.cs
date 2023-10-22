@@ -21,9 +21,10 @@ public class DeathPlane : MonoBehaviour
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             hf_.MoveToSpawn();
             cc_.MoveToSpawn();
-            oc_.ResetTerrainPosition();
             oc_.gameObject.GetComponent<HeroController>().changedTo = HeroController.ChangeToDir.None;
             oc_.holyTerrain_.transform.position = oc_.holyTerrainInitPos;
+            oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
+            oc_.ResetTerrainPosition();
         }
     }
 }
