@@ -10,14 +10,15 @@ public class PlayerKiller : MonoBehaviour
     // Start is called before the first frame update
     public void OnTriggerEnter(Collider other){
         if(other.gameObject.layer == LayerMask.NameToLayer("Player")){
-            Debug.Log("Player hit!");
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
+            oc_.SetDifficulty(ObstaclesController.Difficulty.Difficulty_Easy);
             hf_.MoveToSpawn();
             cc_.MoveToSpawn();
             oc_.gameObject.GetComponent<HeroController>().changedTo = HeroController.ChangeToDir.None;
             oc_.holyTerrain_.transform.position = oc_.holyTerrainInitPos;
             oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
             oc_.ResetTerrainPosition();
+            oc_.timePlaying = 0.0f;
         }
     }
 }

@@ -88,7 +88,7 @@ public class HeroController : MonoBehaviour
         if(Input.GetKey(KeyCode.W)){
             // Debug.Log("Moving forward");
         }
-        if(Input.GetKeyDown(KeyCode.S) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
+        if(Input.GetKeyDown(KeyCode.DownArrow) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
             // anim_.ResetTrigger("RollActivated");
             // Debug.Log("Moving backwards");
@@ -114,11 +114,13 @@ public class HeroController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Moving Left");
+            hero_.transform.position += hero_.transform.right * -1.0f * speed_ * Time.deltaTime;
+            // Debug.Log("Moving Left");
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            Debug.Log("Moving Right");
+            hero_.transform.position += hero_.transform.right * speed_ * Time.deltaTime;
+            // Debug.Log("Moving Right");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -167,10 +169,11 @@ public class HeroController : MonoBehaviour
 
             Physics.CapsuleCast(hero_.transform.position + Vector3.up * heroCollider_.height*0.3f,
                                hero_.transform.position + Vector3.up * heroCollider_.height*0.65f,
-                               heroCollider_.radius * 0.9f, hero_.transform.forward,out hit, 0.1f, LayerMask.GetMask("ObstaclePart"));
+                               heroCollider_.radius * 0.9f, hero_.transform.forward,out hit, 0.1f, LayerMask.GetMask("Terrain"));
 
             if(hit.collider != null){
                 // Debug.Log("Colliding with " + hit.collider.gameObject.name);
+                // heroRb_.velocity = new Vector3(0.0f, heroRb_.velocity.y, 0.0f);
                 heroRb_.velocity = new Vector3(0.0f, heroRb_.velocity.y, 0.0f);
             }else{
                 heroRb_.velocity = new Vector3(hero_.transform.forward.x * speedForward_, heroRb_.velocity.y, hero_.transform.forward.z * speedForward_);

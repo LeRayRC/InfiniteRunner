@@ -30,6 +30,10 @@ public class ObstaclesController : MonoBehaviour
     public float spaceBetweenObstacles;
     public int minObstaclesBeforeChangeDirection;
 
+    
+    public float timePlaying;
+    public float timeBetweenDifficultyChange;
+
     [HideInInspector]
     public int obstaclesGenerated;
     [HideInInspector]
@@ -37,13 +41,22 @@ public class ObstaclesController : MonoBehaviour
     [HideInInspector]
     public bool changeDirection;
 
-    public float timerToDestroyObstacle;
-    public float timeElapsed;
     public int initialObstacles;
+
+
 
     // Start is called before the first frame update
     void Start()
     {
+        SetDifficulty(difficulty_);
+        InitObstacles();
+        holyTerrainInitPos = holyTerrain_.transform.position;
+    }
+
+
+    public void SetDifficulty(Difficulty difficulty){
+        timePlaying = 0.0f;
+        difficulty_ = difficulty;
         switch(difficulty_){
             case Difficulty.Difficulty_Easy:
                 obstaclesPrefabList_ = obstaclesPrefabList1;
@@ -52,78 +65,23 @@ public class ObstaclesController : MonoBehaviour
                 obstaclesPrefabList_ = obstaclesPrefabList2;
                 break;
             case Difficulty.Difficulty_Hard:
-                obstaclesPrefabList_ = obstaclesPrefabList3;
+                obstaclesPrefabList_ = obstaclesPrefabList2;
+                break;
+            default:
+                difficulty_ = Difficulty.Difficulty_Easy;
+                obstaclesPrefabList_ = obstaclesPrefabList1;
                 break;
         }
-
-
-        InitObstacles();
-        holyTerrainInitPos = holyTerrain_.transform.position;
-
     }
-
-    // public void EmptyGameObjectList(List<GameObject> list){
-    //     for(int i=list.Count-1;i>=0;i--){
-    //         list.RemoveAt(i);
-    //     }
-    // }
-
-    // public void SetGameObjectList(List<GameObject> list_src,  List<GameObject> list_dst){
-    //     for(int i=0;i<obstaclesPrefabList1.Count-1;i++){
-    //         list_dst.Add(list_src[i].obstaclePrefab_);
-    //     }
-    // }
-
-    // public void UpdatePrefabList(Difficulty difficulty){
-    //     EmptyGameObjectList(obstaclesList_);
-    //     switch(difficulty){
-    //         case Difficulty.Difficulty_Easy:
-    //             for(int i=0;i<obstaclesPrefabList1.Count-1;i++){
-    //                 obstaclesList_.Add(obstaclesPrefabList1[i].obstaclePrefab_);
-    //             }
-    //             break;
-    //         case Difficulty.Difficulty_Medium:
-    //             for(int i=0;i<obstaclesPrefabList2.Count-1;i++){
-    //                 obstaclesList_.Add(obstaclesPrefabList2[i].obstaclePrefab_);
-    //             }
-    //             break;
-    //         case Difficulty.Difficulty_Hard:
-    //             for(int i=0;i<obstaclesPrefabList3.Count-1;i++){
-    //                 obstaclesList_.Add(obstaclesPrefabList3[i].obstaclePrefab_);
-    //             }
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
     // Update is called once per frame
     void Update()
     {
-        // timeElapsed += Time.deltaTime;
-        // if(timeElapsed >= timerToDestroyObstacle){
-        //     GameObject goDestroy = obstaclesList_[1];
-        //     obstaclesList_.RemoveAt(1);
-        //     Destroy(goDestroy,0.0f);
-        //     InitObstacleInstance();
-        //     timeElapsed = 0.0f;
-        // }
-        //Iterate over list and check if one terrain is behind the
-        //to teleport it towards
-
-        // foreach (GameObject go in obstaclesList_){
-        //     if(go.transform.position.z + go.transform.localScale.z + moveTerrainOffset < hero_.transform.position.z){
-        //         //Destroy gameobject and instantiate another
-        //         Vector3 new_position = GetFurthestTerrain().position;
-        //         new_position.z += spaceBetweenObstacles;
-        //         go.transform.position = new_position;
-        //     }
-        // }
+        timePlaying += Time.deltaTime;
+        if(timePlaying >= timeBetweenDifficultyChange){
+            SetDifficulty(difficulty_ + 1);
+        }
     }
-
-   
-
-    
 
     public Transform GetFurthestTerrain(){
         Vector3 furthest_position = Vector3.zero;

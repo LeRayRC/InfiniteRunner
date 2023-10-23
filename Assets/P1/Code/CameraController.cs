@@ -62,12 +62,9 @@ public class CameraController : MonoBehaviour
 
         if(crossProduct_.sqrMagnitude <= crossProductOffset && Vector3.Distance(tr_.transform.position, followCameraTr_.transform.position) > 0.1f){
             tr_.transform.position = Vector3.Lerp(tr_.transform.position, followCameraTr_.position, 0.01f);
-            // tr_.transform.position = followCameraTr_.transform.position;
         }
         
         rb_.velocity = new Vector3(heroRb_.velocity.x, 0.0f,heroRb_.velocity.z);
-        
-        // }
     }
 
     public void MoveToSpawn(){
