@@ -156,11 +156,11 @@ MonoBehaviour:
   hero_: {fileID: 1971887006}
   deathPlane_: {fileID: 1134944707}
   mainCamera_: {fileID: 963194227}
-  onAirFOV: 100
+  onAirFOV: 90
   dir_: {x: 0, y: 0, z: 0}
   speed_: 10
   speedForward_: 0
-  onGroundSpeedForward_: 12
+  onGroundSpeedForward_: 10
   onAirSpeedForward_: 15
   jumpForce_: 10
   gravityScale_: 3
@@ -211,7 +211,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 55628d283b988db4ba7f30fda56ec485, type: 2}
   - {fileID: 11400000, guid: 4b677b34159bf7b4f8a95166147200ed, type: 2}
   obstaclesPrefabList3: []
-  difficulty_: 1
+  difficulty_: 0
   lastGeneratedObstacle: {fileID: 0}
   hero_: {fileID: 1971887006}
   holyTerrain_: {fileID: 826107423}
@@ -219,11 +219,11 @@ MonoBehaviour:
   moveTerrainOffset: 10
   spaceBetweenObstacles: 7
   minObstaclesBeforeChangeDirection: 8
+  timePlaying: 0
+  timeBetweenDifficultyChange: 5
   obstaclesGenerated: 0
   changeDirection: 0
-  timerToDestroyObstacle: 10
-  timeElapsed: 0
-  initialObstacles: 15
+  initialObstacles: 5
 --- !u!1 &313571239
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,7 +751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312613953}
   m_LocalRotation: {x: -0.2464916, y: -0, z: -0, w: 0.96914494}
-  m_LocalPosition: {x: 0.23000002, y: -6.53, z: 2.07}
+  m_LocalPosition: {x: 0.23000002, y: -4.8, z: 5.26}
   m_LocalScale: {x: 15, y: 15, z: 1}
   m_Children: []
   m_Father: {fileID: 963194228}
