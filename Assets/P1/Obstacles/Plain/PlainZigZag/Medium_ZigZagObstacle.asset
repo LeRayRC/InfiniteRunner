@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1d0f77135a923843ab6cd219b0b55a3, type: 3}
-  m_Name: CylinderObstacle
+  m_Script: {fileID: 11500000, guid: 1fdaf5a510bd07445979d3a7106cb036, type: 3}
+  m_Name: Medium_ZigZagObstacle
   m_EditorClassIdentifier: 
-  obstaclePrefab_: {fileID: 1580478371571723038, guid: 1e7fe51d462daa74da869eaf721a0711, type: 3}
-  minSpeedRotation_: 50
-  maxSpeedRotation_: 100
+  obstaclePrefab_: {fileID: 3922563232975089175, guid: fa6dfe2739a4d314c96108e52cad231c, type: 3}

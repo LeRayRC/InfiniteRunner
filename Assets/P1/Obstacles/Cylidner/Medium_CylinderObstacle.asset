@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b1d0f77135a923843ab6cd219b0b55a3, type: 3}
-  m_Name: CylinderObstacle
+  m_Name: Medium_CylinderObstacle
   m_EditorClassIdentifier: 
-  obstaclePrefab_: {fileID: 1580478371571723038, guid: 1e7fe51d462daa74da869eaf721a0711, type: 3}
-  minSpeedRotation_: 50
+  obstaclePrefab_: {fileID: 1580478371571723038, guid: 404b920d98d4fe54d9df2b92a3740125, type: 3}
+  minSpeedRotation_: 75
   maxSpeedRotation_: 100

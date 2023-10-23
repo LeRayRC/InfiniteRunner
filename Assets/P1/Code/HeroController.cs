@@ -77,7 +77,7 @@ public class HeroController : MonoBehaviour
         else{
             canJump_ = false;
             anim_.SetBool("OnAir",true);
-            Debug.Log("On Air!");
+            // Debug.Log("On Air!");
             mainCamera_.fieldOfView = Mathf.Lerp(mainCamera_.fieldOfView, onAirFOV, 0.01f);
             speedForward_ = onAirSpeedForward_;
         }
@@ -86,12 +86,12 @@ public class HeroController : MonoBehaviour
 
 
         if(Input.GetKey(KeyCode.W)){
-            Debug.Log("Moving forward");
+            // Debug.Log("Moving forward");
         }
         if(Input.GetKeyDown(KeyCode.S) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
             // anim_.ResetTrigger("RollActivated");
-            Debug.Log("Moving backwards");
+            // Debug.Log("Moving backwards");
             anim_.SetTrigger("RollActivated");
         }
         if (Input.GetKey(KeyCode.A))
@@ -129,7 +129,7 @@ public class HeroController : MonoBehaviour
         {
             
             heroRb_.AddForce(Vector3.up * jumpForce_, ForceMode.Impulse);
-            Debug.Log("Jumping");
+            // Debug.Log("Jumping");
             anim_.ResetTrigger("RollActivated");
             
         }
@@ -170,7 +170,7 @@ public class HeroController : MonoBehaviour
                                heroCollider_.radius * 0.9f, hero_.transform.forward,out hit, 0.1f, LayerMask.GetMask("ObstaclePart"));
 
             if(hit.collider != null){
-                Debug.Log("Colliding with " + hit.collider.gameObject.name);
+                // Debug.Log("Colliding with " + hit.collider.gameObject.name);
                 heroRb_.velocity = new Vector3(0.0f, heroRb_.velocity.y, 0.0f);
             }else{
                 heroRb_.velocity = new Vector3(hero_.transform.forward.x * speedForward_, heroRb_.velocity.y, hero_.transform.forward.z * speedForward_);

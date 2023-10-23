@@ -6,7 +6,9 @@ using UnityEngine;
 public class CylinderObstacle : ObstacleData
 {
     // Start is called before the first frame update
-    public float speedRotation_;
+    public float minSpeedRotation_;
+    public float maxSpeedRotation_;
+    CylinderObstaclesController coc_;
 
     public override GameObject InstantiateOnGame(ObstaclesController oc_)
     {
@@ -41,6 +43,9 @@ public class CylinderObstacle : ObstacleData
 
         obstacleGo_.transform.Translate(TranslateHalfScale(obstacleGo_.transform, oc_.lastGeneratedObstacle.transform, oc_.changeDirection), Space.World);
 
+
+        coc_ = obstacleGo_.GetComponentInChildren<CylinderObstaclesController>();
+        coc_.Init(minSpeedRotation_, maxSpeedRotation_);
 
         return obstacleGo_;
     }

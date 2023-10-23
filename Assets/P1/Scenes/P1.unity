@@ -160,7 +160,7 @@ MonoBehaviour:
   dir_: {x: 0, y: 0, z: 0}
   speed_: 10
   speedForward_: 0
-  onGroundSpeedForward_: 10
+  onGroundSpeedForward_: 12
   onAirSpeedForward_: 15
   jumpForce_: 10
   gravityScale_: 3
@@ -197,18 +197,27 @@ MonoBehaviour:
   obstaclesList_:
   - {fileID: 826107423}
   obstaclesToDestroyList_: []
-  obstaclesPrefabList_:
+  obstaclesPrefabList_: []
+  obstaclesPrefabList1:
   - {fileID: 11400000, guid: 25830b6e017a4df43b809307d233867a, type: 2}
   - {fileID: 11400000, guid: 43e83d6a5cf3c2747bedfc7409a90146, type: 2}
   - {fileID: 11400000, guid: 41b3deccfa2d83145bf12c889aa2596d, type: 2}
   - {fileID: 11400000, guid: bc1af0671c76b9d4e8e0f5712298aeca, type: 2}
   - {fileID: 11400000, guid: 5a7e804ab02d814418ccf4c438aed26d, type: 2}
+  obstaclesPrefabList2:
+  - {fileID: 11400000, guid: 918b960af053efb4085be15966f5932a, type: 2}
+  - {fileID: 11400000, guid: fdfb305bf2446cf44a99799a3d921544, type: 2}
+  - {fileID: 11400000, guid: 44b6495401b4ba3458a1a9556c04f07a, type: 2}
+  - {fileID: 11400000, guid: 55628d283b988db4ba7f30fda56ec485, type: 2}
+  - {fileID: 11400000, guid: 4b677b34159bf7b4f8a95166147200ed, type: 2}
+  obstaclesPrefabList3: []
+  difficulty_: 1
   lastGeneratedObstacle: {fileID: 0}
   hero_: {fileID: 1971887006}
   holyTerrain_: {fileID: 826107423}
   holyTerrainInitPos: {x: 0, y: 0, z: 0}
   moveTerrainOffset: 10
-  spaceBetweenObstacles: 5
+  spaceBetweenObstacles: 7
   minObstaclesBeforeChangeDirection: 8
   obstaclesGenerated: 0
   changeDirection: 0
