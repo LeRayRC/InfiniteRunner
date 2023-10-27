@@ -48,7 +48,9 @@ public class HeroController : MonoBehaviour
 
     public float onRollingColliderHeight;
     public Vector3 onRollingColliderCenter;
-    RaycastHit hit; 
+    RaycastHit hit;
+
+    public ParticleSystem particleSys_;
     void Start()
     {   
         changedTo = ChangeToDir.None;
@@ -70,6 +72,10 @@ public class HeroController : MonoBehaviour
         if(Physics.Raycast(hero_.transform.position + (Vector3.up * heroCollider_.height * 0.5f),Vector3.down, ((heroCollider_.height * 0.5f) + 0.1f), LayerMask.GetMask("ObstaclePart"))){
             canJump_ = true;
             anim_.SetBool("OnAir",false);
+            
+            
+            particleSys_.Stop();
+            
             //Debug.Log("On Ground!");
             mainCamera_.fieldOfView = Mathf.Lerp(mainCamera_.fieldOfView, initFOV, 0.01f);
             speedForward_ = onGroundSpeedForward_;
@@ -132,6 +138,9 @@ public class HeroController : MonoBehaviour
             
             heroRb_.AddForce(Vector3.up * jumpForce_, ForceMode.Impulse);
             // Debug.Log("Jumping");
+            
+            particleSys_.Play();
+            
             anim_.ResetTrigger("RollActivated");
             
         }
