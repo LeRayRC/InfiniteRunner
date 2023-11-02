@@ -50,7 +50,9 @@ public class HeroController : MonoBehaviour
     public Vector3 onRollingColliderCenter;
     RaycastHit hit;
 
-    public ParticleSystem particleSys_;
+    public GameObject speedParticles_;
+    public GameObject speedParticlesFatherPosition;
+    public GameObject speedParticlesPrefab_;
     void Start()
     {   
         changedTo = ChangeToDir.None;
@@ -73,8 +75,6 @@ public class HeroController : MonoBehaviour
             canJump_ = true;
             anim_.SetBool("OnAir",false);
             
-            
-            particleSys_.Stop();
             
             //Debug.Log("On Ground!");
             mainCamera_.fieldOfView = Mathf.Lerp(mainCamera_.fieldOfView, initFOV, 0.01f);
@@ -138,11 +138,20 @@ public class HeroController : MonoBehaviour
             
             heroRb_.AddForce(Vector3.up * jumpForce_, ForceMode.Impulse);
             // Debug.Log("Jumping");
-            
-            particleSys_.Play();
-            
+                        
             anim_.ResetTrigger("RollActivated");
-            
+
+            if (speedParticles_ != null)
+            {
+                Destroy(speedParticles_, 0.0f);
+            }
+            GameObject go_ = Instantiate<GameObject>(speedParticlesPrefab_,
+                                                     speedParticlesFatherPosition.transform.position,
+                                                     speedParticlesFatherPosition.transform.rotation);
+            go_.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+            Destroy(go_, go_.GetComponent<ParticleSystem>().main.duration);
+            go_.transform.SetParent(hero_.transform);
+            speedParticles_ = go_;
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -157,7 +166,7 @@ public class HeroController : MonoBehaviour
             changedTo = ChangeToDir.Right;
         }
 
-        if(anim_.GetCurrentAnimatorStateInfo(0).IsName("Rolling")){
+        if (anim_.GetCurrentAnimatorStateInfo(0).IsName("Rolling")){
             heroCollider_.height = onRollingColliderHeight;
             heroCollider_.center = onRollingColliderCenter;
         }else{
