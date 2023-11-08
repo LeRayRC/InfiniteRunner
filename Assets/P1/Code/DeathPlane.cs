@@ -19,6 +19,7 @@ public class DeathPlane : MonoBehaviour
         if(other.gameObject.name == "Hero")
         {   
             
+            CoinController.EmptyCoinList();
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             oc_.SetDifficulty(ObstaclesController.Difficulty.Difficulty_Easy);
             hf_.MoveToSpawn();
@@ -27,7 +28,6 @@ public class DeathPlane : MonoBehaviour
             oc_.holyTerrain_.transform.position = oc_.holyTerrainInitPos;
             oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
             oc_.ResetTerrainPosition();
-            
         }
     }
 }

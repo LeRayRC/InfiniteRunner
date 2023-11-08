@@ -10,6 +10,7 @@ public class PlayerKiller : MonoBehaviour
     // Start is called before the first frame update
     public void OnTriggerEnter(Collider other){
         if(other.gameObject.layer == LayerMask.NameToLayer("Player")){
+            CoinController.EmptyCoinList();
             HeroFunctions hf_ = other.GetComponent<HeroFunctions>();
             oc_.SetDifficulty(ObstaclesController.Difficulty.Difficulty_Easy);
             hf_.MoveToSpawn();

@@ -18,6 +18,7 @@ public class ObstaclesController : MonoBehaviour
     public List<ObstacleData> obstaclesPrefabList2;
     public List<ObstacleData> obstaclesPrefabList3;
 
+
     public Difficulty difficulty_;
 
     [HideInInspector]
