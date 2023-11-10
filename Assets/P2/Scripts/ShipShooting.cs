@@ -79,16 +79,16 @@ public class ShipShooting : MonoBehaviour
         if(powerUps_.tripleFire){
             if(powerUps_.shotgunFire){
                 InitBullet(rightWeapon_, Vector3.up);
-                InitBullet(rightWeapon_,60.0f, 150.0f);
-                InitBullet(rightWeapon_,120.0f, 210.0f);
+                InitBullet(rightWeapon_,60.0f);
+                InitBullet(rightWeapon_,120.0f);
 
                 InitBullet(leftWeapon_, Vector3.up);
-                InitBullet(leftWeapon_,60.0f, 150.0f);
-                InitBullet(leftWeapon_,120.0f, 210.0f);
+                InitBullet(leftWeapon_,60.0f);
+                InitBullet(leftWeapon_,120.0f);
 
                 InitBullet(centralWeapon_, Vector3.up);
-                InitBullet(centralWeapon_,60.0f, 150.0f);
-                InitBullet(centralWeapon_,120.0f, 210.0f);
+                InitBullet(centralWeapon_,60.0f);
+                InitBullet(centralWeapon_,120.0f);
 
             }else{
                 InitBullet(rightWeapon_, Vector3.up);
@@ -99,12 +99,12 @@ public class ShipShooting : MonoBehaviour
         if(powerUps_.doubleFire){
             if(powerUps_.shotgunFire){
                 InitBullet(rightWeapon_, Vector3.up);
-                InitBullet(rightWeapon_,60.0f, 150.0f);
-                InitBullet(rightWeapon_,120.0f, 210.0f);
+                InitBullet(rightWeapon_,60.0f);
+                InitBullet(rightWeapon_,120.0f);
 
                 InitBullet(leftWeapon_, Vector3.up);
-                InitBullet(leftWeapon_,60.0f, 150.0f);
-                InitBullet(leftWeapon_,120.0f, 210.0f);
+                InitBullet(leftWeapon_,60.0f);
+                InitBullet(leftWeapon_,120.0f);
 
             }else{
                 InitBullet(rightWeapon_, Vector3.up);
@@ -113,8 +113,8 @@ public class ShipShooting : MonoBehaviour
         }else{
             if(powerUps_.shotgunFire){
                 InitBullet(centralWeapon_, Vector3.up);
-                InitBullet(centralWeapon_,60.0f, 150.0f);
-                InitBullet(centralWeapon_,120.0f, 210.0f);
+                InitBullet(centralWeapon_,60.0f);
+                InitBullet(centralWeapon_,120.0f);
             }else{
                 InitBullet(centralWeapon_, Vector3.up);
             }
@@ -125,16 +125,19 @@ public class ShipShooting : MonoBehaviour
         GameObject go;
         go = Instantiate<GameObject>(bullet_, prefab.transform.position,prefab.transform.rotation);
         go.GetComponent<BulletController>().bulletDir_ = bulletDir;
+        prefab.GetComponent<ParticleSystem>().Play();
     }
 
-    public void InitBullet(GameObject prefab,float angle, float angleRot_){
+    public void InitBullet(GameObject prefab,float angle){
         GameObject go;
         Vector3 bulletDir = new Vector3();
         bulletDir.x = Mathf.Cos(angle * Mathf.PI / 180.0f);
         bulletDir.y = Mathf.Sin(angle * Mathf.PI / 180.0f);
         bulletDir.z = 0.0f;
         go = Instantiate<GameObject>(bullet_, prefab.transform.position,prefab.transform.rotation);
-        go.transform.Rotate(new Vector3(0.0f,0.0f,angleRot_ ));
+        go.transform.Rotate(new Vector3(0.0f,0.0f,angle + 90.0f ));
         go.GetComponent<BulletController>().bulletDir_ = bulletDir;
+
+        prefab.GetComponent<ParticleSystem>().Play();
     }
 }
