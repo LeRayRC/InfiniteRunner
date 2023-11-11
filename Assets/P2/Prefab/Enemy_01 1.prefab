@@ -99,8 +99,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera_: {fileID: 0}
   moveDir_: {x: 0, y: 0, z: 0}
-  moveSpeed: 0
-  checkRight: 0
+  newPos_: {x: 0, y: 0, z: 0}
+  sinusSpeed_: 4
+  amplitude_: 2
+  moveSpeed_: 0
+  checkRight_: 0
+  sinusInitYpos: 0
 --- !u!210 &-2393083560047256987
 SortingGroup:
   m_ObjectHideFlags: 0

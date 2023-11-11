@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyMovementBehaviour{
+    Normal,
+    Sinus,
+    Suicide,
+    Vertical,
+}
+
 public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -17,8 +24,8 @@ public class EnemySpawner : MonoBehaviour
     public float timeElapsedSinceLastEnemySpawned_;
     public int enemiesSpawnedCount_;
 
-    public float enemy1Speed_; 
-
+    public float enemySpeed_; 
+    public float enemyHordeTimeBetweenEnemy;
     public Camera camera_;
     void Start()
     {
@@ -32,9 +39,10 @@ public class EnemySpawner : MonoBehaviour
         if(timeElapsedSinceLastEnemySpawned_ > enemySpawnCooldwon_)
         {
             enemiesSpawnedCount_++;
-            if(enemiesSpawnedCount_ % 5 == 0)
+            if(enemiesSpawnedCount_ % GameManager.instance.enemyWaveRatio == 0)
             {
-                Debug.Log("Spawn Horde");
+                // Hay que hacer un random para el tipo de horda
+                StartCoroutine(SpawnWaveEnemy(EnemyMovementBehaviour.Sinus));
             }
             else
             {
@@ -50,29 +58,74 @@ public class EnemySpawner : MonoBehaviour
         {
             // Spawn on left
             enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
-            Enemy1Controller e1c;
-            e1c = enemySpawned_.GetComponent<Enemy1Controller>();
+            EnemyController e1c;
+            e1c = enemySpawned_.GetComponent<EnemyController>();
             e1c.camera_ = camera_;
-            e1c.checkRight = true;
+            e1c.checkRight_ = true;
             e1c.moveDir_ = Vector2.right;
-            e1c.moveSpeed = enemy1Speed_;
+            e1c.moveSpeed_ = enemySpeed_;
 
         }
         else
         {
             // Spawn on right
             enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerRight_.transform.position, spawnerRight_.transform.rotation);
-            Enemy1Controller e1c;
-            e1c = enemySpawned_.GetComponent<Enemy1Controller>();
+            EnemyController e1c;
+            e1c = enemySpawned_.GetComponent<EnemyController>();
             e1c.camera_ = camera_;
-            e1c.checkRight = false;
+            e1c.checkRight_ = false;
             e1c.moveDir_ = Vector2.left;
-            e1c.moveSpeed = enemy1Speed_;
+            e1c.moveSpeed_ = enemySpeed_;
         }
     }
 
     public void SpawnEnemyHorde()
     {
 
+    }
+
+    IEnumerator SpawnWaveEnemy(EnemyMovementBehaviour enemyBehaviour){
+        int side = Random.Range(0,2);
+        for(int i=0;i<GameManager.instance.enemyWaveSize;i++){
+            switch(enemyBehaviour){
+                case EnemyMovementBehaviour.Normal:
+                    break;
+                case EnemyMovementBehaviour.Sinus:
+                    if(side == 0){
+                        // Spawn on left
+                        enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
+                        EnemyController e1c;
+                        e1c = enemySpawned_.GetComponent<EnemyController>();
+                        e1c.camera_ = camera_;
+                        e1c.checkRight_ = true;
+                        e1c.moveDir_ = Vector2.right;
+                        e1c.moveSpeed_ = enemySpeed_;
+                        e1c.behaviour_ = EnemyMovementBehaviour.Sinus;
+                        // e1c.sinusPhase_ = Random.Range(0,Mathf.PI);
+                        e1c.sinusPhase_ = (i *Mathf.PI) / GameManager.instance.enemyWaveSize;
+                    }
+                    else{
+                        // Spawn on right
+                        enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerRight_.transform.position, spawnerRight_.transform.rotation);
+                        EnemyController e1c;
+                        e1c = enemySpawned_.GetComponent<EnemyController>();
+                        e1c.camera_ = camera_;
+                        e1c.checkRight_ = false;
+                        e1c.moveDir_ = Vector2.left;
+                        e1c.moveSpeed_ = enemySpeed_;
+                        e1c.behaviour_ = EnemyMovementBehaviour.Sinus;
+                        // e1c.sinusPhase_ = Random.Range(0,Mathf.PI);
+                        e1c.sinusPhase_ = (i *Mathf.PI) / GameManager.instance.enemyWaveSize;
+                    }
+                    break;
+                case EnemyMovementBehaviour.Suicide:
+                    break;
+                case EnemyMovementBehaviour.Vertical:
+                    break;
+                default:
+                    break;
+            }
+            yield return new WaitForSeconds(enemyHordeTimeBetweenEnemy);
+        }
     }
 }
