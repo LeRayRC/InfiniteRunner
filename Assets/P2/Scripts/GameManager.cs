@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 public class GameManager : MonoBehaviour{
     public static GameManager instance = null; //Static instance of GameInstance which allows it to be
 
@@ -8,6 +9,10 @@ public class GameManager : MonoBehaviour{
     public float timeToChangeLevel;
     public float enemyWaveRatio;
     public int enemyWaveSize;
+
+    public List<GameObject> bulletList_;
+    public int bulletCount_;
+
     void Awake(){
         //Check if instance already exists
         if (instance == null){

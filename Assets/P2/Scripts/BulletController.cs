@@ -8,7 +8,7 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed_;
     public Vector3 bulletDir_;
     public float lifeTime_;
-
+    
     void Start(){
         Destroy(this.gameObject,lifeTime_);
     }

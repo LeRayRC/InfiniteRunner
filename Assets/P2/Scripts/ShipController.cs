@@ -14,6 +14,8 @@ public class ShipController : MonoBehaviour
     void Start()
     {
         shipTr_ = ship_.GetComponent<Transform>();
+
+
     }
 
     // Update is called once per frame
