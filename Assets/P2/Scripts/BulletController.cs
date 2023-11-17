@@ -17,4 +17,13 @@ public class BulletController : MonoBehaviour
     {
         transform.Translate(bulletDir_ * bulletSpeed_ * Time.deltaTime, Space.World);
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {   
+        EnemyController ec_ = col.gameObject.GetComponent<EnemyController>();
+        GameObject go_ = Instantiate<GameObject>(ec_.explosionParticles_, col.gameObject.transform.position, col.gameObject.transform.rotation);
+        go_.GetComponentInChildren<ParticleSystem>().Play();
+        Destroy(col.collider.gameObject,0.0f);
+        Destroy(this.gameObject,0.0f);
+    }
 }
