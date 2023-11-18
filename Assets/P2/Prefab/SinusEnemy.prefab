@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 693428089607837227}
   - component: {fileID: -2393083560047256987}
   - component: {fileID: 7810607724427656349}
-  m_Layer: 0
-  m_Name: Enemy_01 1
+  m_Layer: 10
+  m_Name: SinusEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 7193456518881720281}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 950.7962, y: 103.21305, z: -225.68408}
-  m_LocalScale: {x: 1.4756, y: 1.4756, z: 1.4756}
+  m_LocalScale: {x: 1.224748, y: 1.224748, z: 1.224748}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -106,7 +106,6 @@ MonoBehaviour:
   amplitude_: 2
   moveSpeed_: 0
   checkRight_: 0
-  explosionParticles_: {fileID: 1280240331523082, guid: 45ae5851ef2832044bba82850372d67b, type: 3}
   behaviour_: 0
   sinusInitYpos: 0
 --- !u!210 &-2393083560047256987

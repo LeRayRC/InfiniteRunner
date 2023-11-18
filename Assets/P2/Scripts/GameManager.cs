@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour{
     public float timeToChangeLevel;
     public float enemyWaveRatio;
     public int enemyWaveSize;
+    public Camera camera_;
+    public GameObject player_;
+    public GameObject enemyExplosionParticles_;
 
     public List<GameObject> bulletList_;
     public int bulletCount_;

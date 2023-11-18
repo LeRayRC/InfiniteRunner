@@ -13,9 +13,6 @@ public class EnemyController : MonoBehaviour
     public float amplitude_;
     public float moveSpeed_;
     public bool checkRight_;
-
-    public GameObject explosionParticles_;
-
     public EnemyMovementBehaviour behaviour_;
     public float sinusInitYpos;
     void Start()

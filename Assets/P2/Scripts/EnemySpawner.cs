@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum EnemyMovementBehaviour{
-    Normal,
     Sinus,
-    Suicide,
+    Kamikaze,
     Vertical,
+}
+
+public enum SideSpawned{
+    Left,
+    Right,
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -15,8 +19,7 @@ public class EnemySpawner : MonoBehaviour
     public GameObject spawnerLeft_;
     public GameObject spawnerRight_;
 
-    public GameObject enemyPrefab1_;
-    public GameObject enemyPrefab2_;
+    public List<GameObject> enemyPrefabs_;
 
     GameObject enemySpawned_ = null;
 
@@ -53,29 +56,59 @@ public class EnemySpawner : MonoBehaviour
     }
 
     public void SpawnEnemy()
-    {
-        if(Random.Range(0,2) == 0)
+    {   
+        int selectedEnemy = Random.Range(0,enemyPrefabs_.Count);
+
+
+        if((SideSpawned)Random.Range(0,2) == SideSpawned.Left)
         {
             // Spawn on left
-            enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
-            EnemyController e1c;
-            e1c = enemySpawned_.GetComponent<EnemyController>();
-            e1c.camera_ = camera_;
-            e1c.checkRight_ = true;
-            e1c.moveDir_ = Vector2.right;
-            e1c.moveSpeed_ = enemySpeed_;
+            enemySpawned_ = Instantiate<GameObject>(enemyPrefabs_[selectedEnemy], spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
+
+            switch((EnemyMovementBehaviour) selectedEnemy){
+                case EnemyMovementBehaviour.Sinus:
+                    EnemyController e1c;
+                    e1c = enemySpawned_.GetComponent<EnemyController>();
+                    e1c.camera_ = camera_;
+                    e1c.checkRight_ = true;
+                    e1c.moveDir_ = Vector2.right;
+                    e1c.moveSpeed_ = enemySpeed_;
+                    break;
+                case EnemyMovementBehaviour.Kamikaze:
+                    EnemyCircularController ecc_ = enemySpawned_.GetComponent<EnemyCircularController>();
+                    ecc_.mov_dir_ = Vector2.right;
+                    ecc_.mov_speed_ = enemySpeed_;
+                    ecc_.checkRight_ = true;
+                    ecc_.rot_flow_ = 1.0f;
+                    break;
+            }
+            
 
         }
         else
         {
+            enemySpawned_ = Instantiate<GameObject>(enemyPrefabs_[selectedEnemy], spawnerRight_.transform.position, spawnerRight_.transform.rotation);
+
+
+            switch((EnemyMovementBehaviour) selectedEnemy){
+                case EnemyMovementBehaviour.Sinus:
+                    EnemyController e1c;
+                    e1c = enemySpawned_.GetComponent<EnemyController>();
+                    e1c.camera_ = camera_;
+                    e1c.checkRight_ = false;
+                    e1c.moveDir_ = Vector2.left;
+                    e1c.moveSpeed_ = enemySpeed_;
+                    break;
+                case EnemyMovementBehaviour.Kamikaze:
+                    EnemyCircularController ecc_ = enemySpawned_.GetComponent<EnemyCircularController>();
+                    ecc_.mov_dir_ = Vector2.left;
+                    ecc_.mov_speed_ = enemySpeed_;
+                    ecc_.checkRight_ = false;
+                    ecc_.rot_flow_ = -1.0f;
+                    break;
+            }
             // Spawn on right
-            enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerRight_.transform.position, spawnerRight_.transform.rotation);
-            EnemyController e1c;
-            e1c = enemySpawned_.GetComponent<EnemyController>();
-            e1c.camera_ = camera_;
-            e1c.checkRight_ = false;
-            e1c.moveDir_ = Vector2.left;
-            e1c.moveSpeed_ = enemySpeed_;
+            
         }
     }
 
@@ -88,12 +121,10 @@ public class EnemySpawner : MonoBehaviour
         int side = Random.Range(0,2);
         for(int i=0;i<GameManager.instance.enemyWaveSize;i++){
             switch(enemyBehaviour){
-                case EnemyMovementBehaviour.Normal:
-                    break;
                 case EnemyMovementBehaviour.Sinus:
                     if(side == 0){
                         // Spawn on left
-                        enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
+                        enemySpawned_ = Instantiate<GameObject>(enemyPrefabs_[0], spawnerLeft_.transform.position, spawnerLeft_.transform.rotation);
                         EnemyController e1c;
                         e1c = enemySpawned_.GetComponent<EnemyController>();
                         e1c.camera_ = camera_;
@@ -106,7 +137,7 @@ public class EnemySpawner : MonoBehaviour
                     }
                     else{
                         // Spawn on right
-                        enemySpawned_ = Instantiate<GameObject>(enemyPrefab1_, spawnerRight_.transform.position, spawnerRight_.transform.rotation);
+                        enemySpawned_ = Instantiate<GameObject>(enemyPrefabs_[0], spawnerRight_.transform.position, spawnerRight_.transform.rotation);
                         EnemyController e1c;
                         e1c = enemySpawned_.GetComponent<EnemyController>();
                         e1c.camera_ = camera_;
@@ -118,7 +149,7 @@ public class EnemySpawner : MonoBehaviour
                         e1c.sinusPhase_ = (i *Mathf.PI) / GameManager.instance.enemyWaveSize;
                     }
                     break;
-                case EnemyMovementBehaviour.Suicide:
+                case EnemyMovementBehaviour.Kamikaze:
                     break;
                 case EnemyMovementBehaviour.Vertical:
                     break;
