@@ -54,6 +54,8 @@ public class HeroController : MonoBehaviour
     public GameObject speedParticles_;
     public GameObject speedParticlesFatherPosition;
     public GameObject speedParticlesPrefab_;
+
+    public float distanceDone_;
     void Start()
     {   
         changedTo = ChangeToDir.None;
@@ -95,18 +97,18 @@ public class HeroController : MonoBehaviour
         if(Input.GetKey(KeyCode.W)){
             // Debug.Log("Moving forward");
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
+        if((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && anim_.GetCurrentAnimatorStateInfo(0).IsName("Running"))
         {
             // anim_.ResetTrigger("RollActivated");
             // Debug.Log("Moving backwards");
             anim_.SetTrigger("RollActivated");
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             hero_.transform.position += hero_.transform.right * -1.0f * speed_ * Time.deltaTime;
             //Debug.Log("Moving Left");
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) )
         {
             hero_.transform.position += hero_.transform.right * speed_ * Time.deltaTime;
             //Debug.Log("Moving Right");
@@ -119,16 +121,16 @@ public class HeroController : MonoBehaviour
         {
             Debug.Log("Moving backwards");
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            hero_.transform.position += hero_.transform.right * -1.0f * speed_ * Time.deltaTime;
-            // Debug.Log("Moving Left");
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            hero_.transform.position += hero_.transform.right * speed_ * Time.deltaTime;
-            // Debug.Log("Moving Right");
-        }
+        // if (Input.GetKey(KeyCode.LeftArrow))
+        // {
+        //     hero_.transform.position += hero_.transform.right * -1.0f * speed_ * Time.deltaTime;
+        //     // Debug.Log("Moving Left");
+        // }
+        // if (Input.GetKey(KeyCode.RightArrow))
+        // {
+        //     hero_.transform.position += hero_.transform.right * speed_ * Time.deltaTime;
+        //     // Debug.Log("Moving Right");
+        // }
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -180,6 +182,7 @@ public class HeroController : MonoBehaviour
                                                                   deathPlane_.transform.position.y,
                                                                   hero_.transform.position.z),1.0f);
 
+        distanceDone_ += speedForward_*Time.deltaTime;
     }
 
     void FixedUpdate(){
