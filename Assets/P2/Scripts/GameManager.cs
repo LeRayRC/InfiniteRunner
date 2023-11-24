@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour{
     public GameObject enemyExplosionParticles_;
 
     public List<GameObject> bulletList_;
+    public List<Material> levelMaterials_;
     public int bulletCount_;
 
     void Awake(){
