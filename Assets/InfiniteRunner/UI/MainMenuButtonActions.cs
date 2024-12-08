@@ -10,6 +10,7 @@ public class MainMenuButtonActions : MonoBehaviour
     public CanvasGroup canvasGroup; // Asigna el CanvasGroup del Panel aquí en el Inspector
     public float fadeDuration = 1.5f; // Duración del desvanecimiento en segundos
     public Button playButton;
+    public AudioClip audioTrack;
     
     private void Start()
     {
@@ -19,6 +20,7 @@ public class MainMenuButtonActions : MonoBehaviour
             canvasGroup = GetComponent<CanvasGroup>();
         }
         playButton.onClick.AddListener(() => FadeOut());
+        AudioManager.instance.ReturnToDefault();
     }
     
     
@@ -26,6 +28,7 @@ public class MainMenuButtonActions : MonoBehaviour
     {
         Debug.Log("Fading");
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0.0f));
+        AudioManager.instance.SwapTrack(audioTrack);
     }
 
     public void FadeIn()
