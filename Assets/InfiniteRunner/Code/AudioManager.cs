@@ -29,6 +29,11 @@ public class AudioManager : MonoBehaviour
         SwapTrack(defaultAmbience);
     }
 
+    public void StopMusic()
+    {
+        Destroy(this.gameObject, 0.5f);
+    }
+
     public void SwapTrack(AudioClip newClip)
     {
         StopAllCoroutines();

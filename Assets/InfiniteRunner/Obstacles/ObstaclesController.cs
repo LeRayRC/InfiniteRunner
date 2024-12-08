@@ -5,6 +5,7 @@ using System.Timers;
 
 public class ObstaclesController : MonoBehaviour
 {
+    [System.Serializable]
     public enum Difficulty{
         Difficulty_Easy,
         Difficulty_Medium,
@@ -66,7 +67,8 @@ public class ObstaclesController : MonoBehaviour
                 obstaclesPrefabList_ = obstaclesPrefabList2;
                 break;
             case Difficulty.Difficulty_Hard:
-                obstaclesPrefabList_ = obstaclesPrefabList2;
+                difficulty_ = Difficulty.Difficulty_Easy;
+                obstaclesPrefabList_ = obstaclesPrefabList1;
                 break;
             default:
                 difficulty_ = Difficulty.Difficulty_Easy;
