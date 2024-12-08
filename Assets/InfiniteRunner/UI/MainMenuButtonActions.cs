@@ -20,14 +20,14 @@ public class MainMenuButtonActions : MonoBehaviour
             canvasGroup = GetComponent<CanvasGroup>();
         }
         playButton.onClick.AddListener(() => FadeOut());
-        //AudioManager.instance.ReturnToDefault();
+        AudioManager.instance.ReturnToDefault();
     }
     
     
     public void FadeOut()
     {
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0.0f));
-        //AudioManager.instance.SwapTrack(audioTrack);
+        AudioManager.instance.SwapTrack(audioTrack);
     }
 
     public void FadeIn()
@@ -38,7 +38,6 @@ public class MainMenuButtonActions : MonoBehaviour
     private System.Collections.IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end=0.0f)
     {
         float elapsed = 0f;
-        Debug.Log("Loading Scene - Start Fade");
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
@@ -47,13 +46,10 @@ public class MainMenuButtonActions : MonoBehaviour
         }
 
         cg.alpha = end;
-        Debug.Log("Loading Scene - Finish Fade");
         if (end <= 0.0f)
         {
             cg.gameObject.SetActive(false);
-            Debug.Log("Loading Scene - Start");
             SceneManager.LoadScene(1, LoadSceneMode.Additive);
-            Debug.Log("Loading Scene - Finish");
         }
     }
 }

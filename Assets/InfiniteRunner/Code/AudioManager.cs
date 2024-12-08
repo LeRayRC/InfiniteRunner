@@ -29,7 +29,7 @@ public class AudioManager : MonoBehaviour
 
     public void SwapTrack(AudioClip newClip)
     {
-        //StopAllCoroutines();
+        StopAllCoroutines();
 
         StartCoroutine(FadeTrack(newClip));
         isPlayingTrack01 = false;
