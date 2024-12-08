@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
         //    track02.Play();
         //}
 
-        StopAllCoroutines(); // Detener cualquier transici�n en curso
+        StopAllCoroutines(); 
         track02.volume = 1.0f;
         track01.volume = 1.0f;
         // Iniciar el fade hacia la pista predeterminada

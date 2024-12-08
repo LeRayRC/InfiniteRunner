@@ -26,7 +26,6 @@ public class MainMenuButtonActions : MonoBehaviour
     
     public void FadeOut()
     {
-        Debug.Log("Fading");
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0.0f));
         AudioManager.instance.SwapTrack(audioTrack);
     }
@@ -39,7 +38,6 @@ public class MainMenuButtonActions : MonoBehaviour
     private System.Collections.IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end=0.0f)
     {
         float elapsed = 0f;
-
         while (elapsed < fadeDuration)
         {
             elapsed += Time.deltaTime;
@@ -48,7 +46,6 @@ public class MainMenuButtonActions : MonoBehaviour
         }
 
         cg.alpha = end;
-
         if (end <= 0.0f)
         {
             cg.gameObject.SetActive(false);
