@@ -20,7 +20,7 @@ public class MainMenuButtonActions : MonoBehaviour
             canvasGroup = GetComponent<CanvasGroup>();
         }
         playButton.onClick.AddListener(() => FadeOut());
-        AudioManager.instance.ReturnToDefault();
+        //AudioManager.instance.ReturnToDefault();
     }
     
     

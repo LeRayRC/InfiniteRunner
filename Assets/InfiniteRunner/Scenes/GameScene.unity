@@ -383,9 +383,9 @@ MonoBehaviour:
   baseMusic: {fileID: 194942998}
   layer2Music: {fileID: 194943000}
   layer3Music: {fileID: 194942999}
-  VolumeBase: 0.1
-  VolumeLayer2: 0.1
-  VolumeLayer3: 0.1
+  VolumeBase: 0.01
+  VolumeLayer2: 0.01
+  VolumeLayer3: 0.01
   triggerValueLayer2: 100
   triggerValueLayer3: 200
   fadeTime: 2

@@ -77,6 +77,6 @@ public class AudioLayeringManager : MonoBehaviour
             yield return null;
         }
 
-        audioSource.volume = 1.0f; 
+        //audioSource.volume = 1.0f; 
     }
 }

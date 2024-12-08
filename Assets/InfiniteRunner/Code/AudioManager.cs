@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour
     private AudioSource track01, track02;
     private bool isPlayingTrack01;
     public static AudioManager instance;
+    public float maxVolume01;
+    public float maxVolume02;
 
     private void Awake()
     {
@@ -32,7 +34,7 @@ public class AudioManager : MonoBehaviour
         StopAllCoroutines();
 
         StartCoroutine(FadeTrack(newClip));
-        isPlayingTrack01 = false;
+        isPlayingTrack01 = !isPlayingTrack01;
     }
 
     public void ReturnToDefault()
@@ -56,8 +58,8 @@ public class AudioManager : MonoBehaviour
         //}
 
         StopAllCoroutines(); 
-        track02.volume = 1.0f;
-        track01.volume = 1.0f;
+        // track02.volume = maxVolume02;
+        // track01.volume = maxVolume01;
         // Iniciar el fade hacia la pista predeterminada
         StartCoroutine(FadeTrack(defaultAmbience));
     }
@@ -75,14 +77,14 @@ public class AudioManager : MonoBehaviour
             while (timeElapsed < timeToFade)
             {
 
-                track02.volume = Mathf.Lerp(0, 1, timeElapsed / timeToFade);
-                track01.volume = Mathf.Lerp(1, 0, timeElapsed / timeToFade);
+                track02.volume = Mathf.Lerp(0, maxVolume02, timeElapsed / timeToFade);
+                track01.volume = Mathf.Lerp(maxVolume01, 0, timeElapsed / timeToFade);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
 
             track01.Stop();
-            track01.volume = 1.0f;
+
         }
         else
         {
@@ -91,13 +93,13 @@ public class AudioManager : MonoBehaviour
 
             while (timeElapsed < timeToFade)
             {
-                track01.volume = Mathf.Lerp(0, 1, timeElapsed / timeToFade);
-                track02.volume = Mathf.Lerp(1, 0, timeElapsed / timeToFade);
+                track01.volume = Mathf.Lerp(0, maxVolume01, timeElapsed / timeToFade);
+                track02.volume = Mathf.Lerp(maxVolume02, 0, timeElapsed / timeToFade);
                 timeElapsed += Time.deltaTime;
                 yield return null;
             }
             track02.Stop();
-            track02.volume = 1.0f;
+
         }
     }
 }
