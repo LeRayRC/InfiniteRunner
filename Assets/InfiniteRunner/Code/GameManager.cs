@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
     {
         gamePaused = false;
         gameRunning = false;
+        layeringEnabled = true;
+        branchingEnabled = true;
     }
 
     
