@@ -48,6 +48,8 @@ public class BranchingAudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.branchingEnabled) return;
+        
         if (audioSource.isPlaying)
         {
             currentTime += Time.deltaTime;

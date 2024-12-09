@@ -10,11 +10,16 @@ public enum Difficulty{
     Difficulty_None,
 }
 
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public Difficulty currentDifficultyAudioZone;
-    
+    public bool gamePaused;
+    public bool gameRunning;
+    public bool layeringEnabled;
+    public bool branchingEnabled;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -25,6 +30,13 @@ public class GameManager : MonoBehaviour
 
         instance = this;
     }
+
+    public void Start()
+    {
+        gamePaused = false;
+        gameRunning = false;
+    }
+
     
     
 }

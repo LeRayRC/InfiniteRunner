@@ -36,6 +36,7 @@ public class AudioLayeringManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.instance.layeringEnabled) return;
         if (hero_.distanceDone_ <= 10.0f)
         {
             baseMusic.Stop();
