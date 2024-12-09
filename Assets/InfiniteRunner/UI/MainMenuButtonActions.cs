@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class MainMenuButtonActions : MonoBehaviour
     public float fadeDuration = 1.5f; // Duración del desvanecimiento en segundos
     public Button playButton;
     public AudioClip audioTrack;
+    public AudioManager audioManager;
+    
     
     private void Start()
     {
@@ -27,7 +30,7 @@ public class MainMenuButtonActions : MonoBehaviour
     public void FadeOut()
     {
         StartCoroutine(FadeCanvasGroup(canvasGroup, canvasGroup.alpha, 0.0f));
-        AudioManager.instance.SwapTrack(audioTrack);
+        audioManager.SwapTrack(audioTrack);
     }
 
     public void FadeIn()

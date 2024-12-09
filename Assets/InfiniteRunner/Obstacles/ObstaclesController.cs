@@ -5,12 +5,6 @@ using System.Timers;
 
 public class ObstaclesController : MonoBehaviour
 {
-    [System.Serializable]
-    public enum Difficulty{
-        Difficulty_Easy,
-        Difficulty_Medium,
-        Difficulty_Hard,
-    }
     public List<GameObject> obstaclesList_;
     public List<GameObject> obstaclesToDestroyList_;
      
@@ -19,7 +13,8 @@ public class ObstaclesController : MonoBehaviour
     public List<ObstacleData> obstaclesPrefabList2;
     public List<ObstacleData> obstaclesPrefabList3;
 
-
+    public GameObject triggerAudioBoxPrefab;
+    
     public Difficulty difficulty_;
 
     [HideInInspector]
@@ -35,7 +30,7 @@ public class ObstaclesController : MonoBehaviour
     
     public float timePlaying;
     public float timeBetweenDifficultyChange;
-
+    private bool difficultyChanged;
     [HideInInspector]
     public int obstaclesGenerated;
     [HideInInspector]
@@ -53,12 +48,14 @@ public class ObstaclesController : MonoBehaviour
         SetDifficulty(difficulty_);
         InitObstacles();
         holyTerrainInitPos = holyTerrain_.transform.position;
+        difficultyChanged = true;
     }
 
 
     public void SetDifficulty(Difficulty difficulty){
         timePlaying = 0.0f;
         difficulty_ = difficulty;
+        difficultyChanged = true;
         switch(difficulty_){
             case Difficulty.Difficulty_Easy:
                 obstaclesPrefabList_ = obstaclesPrefabList1;
@@ -124,28 +121,41 @@ public class ObstaclesController : MonoBehaviour
 
     public void InitObstacleInstance(){
         int prefab_selected = Random.Range(0,obstaclesPrefabList_.Count);
-            if(obstaclesGenerated < minObstaclesBeforeChangeDirection){
+        if(obstaclesGenerated < minObstaclesBeforeChangeDirection){
 
-                //Generate normal obstacle
-                if(obstaclesGenerated == minObstaclesBeforeChangeDirection-1){
-                    obstacleGo_ = obstaclesPrefabList_[0].InstantiateOnGame(this);
-                }else{
-                    obstacleGo_ = obstaclesPrefabList_[prefab_selected].InstantiateOnGame(this);
-                }
-                obstaclesGenerated++;
-            }else{
-                obstaclesGenerated = 0;
-                changeDirection = true;
-                //Generate plain direction with change right or left
+            //Generate normal obstacle
+            if(obstaclesGenerated == minObstaclesBeforeChangeDirection-1){
                 obstacleGo_ = obstaclesPrefabList_[0].InstantiateOnGame(this);
-                changeDirection = false; 
-            }
-            
-            if( obstacleGo_ != null){
-                obstaclesList_.Add(obstacleGo_);
-                lastGeneratedObstacle = obstacleGo_;
             }else{
-                Debug.Log("Obstacle generated is null");
+                obstacleGo_ = obstaclesPrefabList_[prefab_selected].InstantiateOnGame(this);
             }
+            obstaclesGenerated++;
+        }else{
+            obstaclesGenerated = 0;
+            changeDirection = true;
+            //Generate plain direction with change right or left
+            obstacleGo_ = obstaclesPrefabList_[0].InstantiateOnGame(this);
+            changeDirection = false; 
+        }
+        
+        if( obstacleGo_ != null){
+            obstaclesList_.Add(obstacleGo_);
+            lastGeneratedObstacle = obstacleGo_;
+        }else{
+            Debug.Log("Obstacle generated is null");
+        }
+        
+        //Generate trigger box to change difficulty
+        if (difficultyChanged)
+        {
+            GameObject triggerAudioBoxGo = Instantiate<GameObject>(triggerAudioBoxPrefab,obstacleGo_.transform.position,Quaternion.identity);
+            AudioTriggerManager manager = triggerAudioBoxGo.GetComponent<AudioTriggerManager>();
+            if (manager)
+            {
+                manager.difficultyAudioZone = difficulty_;
+            }
+            triggerAudioBoxGo.transform.SetParent(obstacleGo_.transform);
+            difficultyChanged = false;
+        }
     }
 }

@@ -7,16 +7,17 @@ public class AudioManager : MonoBehaviour
     public AudioClip defaultAmbience;
     private AudioSource track01, track02;
     private bool isPlayingTrack01;
-    public static AudioManager instance;
+    // public static AudioManager instance;
     public float maxVolume01;
     public float maxVolume02;
+    private GameManager gameManager;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
+        // if (instance == null)
+        // {
+        //     instance = this;
+        // }
     }
 
     private void Start()
@@ -26,14 +27,10 @@ public class AudioManager : MonoBehaviour
         isPlayingTrack01 = true;
         track01.loop = true;
         track02.loop = true;
+        gameManager = GameManager.instance;
         SwapTrack(defaultAmbience);
     }
-
-    public void StopMusic()
-    {
-        Destroy(this.gameObject, 0.5f);
-    }
-
+    
     public void SwapTrack(AudioClip newClip)
     {
         StopAllCoroutines();
@@ -105,6 +102,21 @@ public class AudioManager : MonoBehaviour
             }
             track02.Stop();
 
+        }
+    }
+    
+    public void Update()
+    {
+        if (gameManager)
+        {
+            if (gameManager.currentDifficultyAudioZone != Difficulty.Difficulty_None)
+            {
+                gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            gameManager = GameManager.instance;
         }
     }
 }

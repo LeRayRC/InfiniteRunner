@@ -2,83 +2,105 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-
+using System.Timers;
+using System;
 
 
 
 public class BranchingAudioManager : MonoBehaviour
 {
-    public List<AudioClip> audioClips;
-    public ObstaclesController obstaclesController;
-    // Start is called before the first frame update
-    private float changeInterval;
-    private float initDelay;
-    public float offsetInterval;
-    public bool isStarted = true;
-    private float currentTime;
-    public AudioSource audioSource;
-    public float playVolume;
+    private Timer checkAudioZoneTimer;
+    public float checkAudioZoneTimerInterval;
+    private GameManager gameManager;
     
-    public AudioClip audioClipToPlay;
-    public AudioClip audioClipPlaying;
+    
+    public AudioClip easyZoneAudioClip;
+    public AudioClip mediumZoneAudioClip;
+    
+    public ObstaclesController obstaclesController;
+    private float currentTime;
+    private AudioSource audioSource;
+    public float playVolume;
+    public float initVolumeProgress;
+    
+    public Difficulty difficultyAudioPlaying;
     void Awake()
     {
         currentTime = 0.0f;
-        initDelay = 5.0f;
-        isStarted = false;
     }
 
     void Start()
     {
+        gameManager = GameManager.instance;
         
-        changeInterval = obstaclesController.timeBetweenDifficultyChange;
-        audioSource.clip = audioClips[0];
+        checkAudioZoneTimer = new Timer(checkAudioZoneTimerInterval);
+        checkAudioZoneTimer.Elapsed += OnTimerElapsedCheck;
+        checkAudioZoneTimer.AutoReset = true;
+        checkAudioZoneTimer.Enabled = true;
+
+        difficultyAudioPlaying = Difficulty.Difficulty_None;
+        
+        audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0.0f;
-        audioSource.Play();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentTime += Time.deltaTime;
-        if (currentTime >= initDelay && !isStarted)
+        if (audioSource.isPlaying)
         {
-            
-            Debug.Log("Destroying " + currentTime + " " + initDelay);
-            AudioManager.instance.StopMusic();
-            isStarted = true;
-            UpdateTrack();
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(0.0f, playVolume, currentTime / initVolumeProgress);
+        }
+        else
+        {
             currentTime = 0.0f;
         }
         
-        if (currentTime >= (changeInterval + offsetInterval))
-        {
-            //Do things
-            UpdateTrack();
-            
-            currentTime = 0.0f;
-        }
-    }
-
-    public void UpdateTrack()
-    {
-        switch (obstaclesController.difficulty_)
-        {
-            case ObstaclesController.Difficulty.Difficulty_Easy:
-                audioSource.clip = audioClips[0];
+        switch (difficultyAudioPlaying) {
+            case Difficulty.Difficulty_None:
+                audioSource.Stop();
                 break;
-            case ObstaclesController.Difficulty.Difficulty_Medium:
-                audioSource.clip = audioClips[1];
+            case Difficulty.Difficulty_Easy:
+                audioSource.clip = easyZoneAudioClip;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
                 break;
-            case ObstaclesController.Difficulty.Difficulty_Hard:
-                audioSource.clip = audioClips[0];
+            case Difficulty.Difficulty_Medium:
+                audioSource.clip = mediumZoneAudioClip;
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.Play();
+                }
+                break;
+            case Difficulty.Difficulty_Hard:
                 break;
             default:
-                audioSource.clip = audioClips[0];
                 break;
         }
         
-        audioSource.Play();
-        audioSource.volume = playVolume;
+
+    }
+    
+    private void OnTimerElapsedCheck(object sender, ElapsedEventArgs e)
+    {
+        Debug.Log($"Timer elapsed at {DateTime.Now}");
+        if (gameManager)
+        {
+            difficultyAudioPlaying = gameManager.currentDifficultyAudioZone;
+        }
+    }
+    
+    void OnDestroy()
+    {
+        // Limpia el timer cuando el objeto se destruye
+        if (checkAudioZoneTimer != null)
+        {
+            checkAudioZoneTimer.Stop();
+            checkAudioZoneTimer.Dispose();
+        }
     }
 }

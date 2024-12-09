@@ -16,7 +16,7 @@ public class PlayerKiller : MonoBehaviour
             glc_.ShowScoreTable(hf_.score,(int)oc_.gameObject.GetComponent<HeroController>().distanceDone_);
 
             
-            oc_.SetDifficulty(ObstaclesController.Difficulty.Difficulty_Easy);
+            oc_.SetDifficulty(Difficulty.Difficulty_Easy);
             hf_.MoveToSpawn();
             cc_.MoveToSpawn();
 
