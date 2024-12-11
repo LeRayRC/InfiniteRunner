@@ -14,7 +14,15 @@ public class BranchingAudioManager : MonoBehaviour
     private GameManager gameManager;
     
     
+    
     public AudioClip easyZoneAudioClip;
+    public List<AudioClip> easyAudioClips;
+    public List<AudioClip> mediumAudioClips;
+    public int easyAudioClipIndex;
+    public int mediumAudioClipIndex;
+    public bool updateTrack;
+    public AudioClip easyToMediumTransitionAudioClip;  
+    public AudioClip mediumToEasyTransitionAudioClip;  
     public AudioClip mediumZoneAudioClip;
     
     public ObstaclesController obstaclesController;
@@ -42,7 +50,10 @@ public class BranchingAudioManager : MonoBehaviour
         
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0.0f;
-        
+
+        easyAudioClipIndex = 0;
+        mediumAudioClipIndex = 0;
+        updateTrack = false;
     }
 
     // Update is called once per frame
@@ -65,11 +76,23 @@ public class BranchingAudioManager : MonoBehaviour
                 audioSource.Stop();
                 break;
             case Difficulty.Difficulty_Easy:
-                audioSource.clip = easyZoneAudioClip;
+                // audioSource.clip = easyZoneAudioClip;
+                audioSource.clip = easyAudioClips[easyAudioClipIndex];
+                
                 if (!audioSource.isPlaying)
                 {
                     audioSource.Play();
+                    updateTrack = true;
+                    if(updateTrack){
+                        updateTrack = false;
+                        easyAudioClipIndex++;
+                        if(easyAudioClipIndex >= easyAudioClips.Count){
+                            easyAudioClipIndex = 0;
+                        }
+                    }
                 }
+
+
                 break;
             case Difficulty.Difficulty_Medium:
                 audioSource.clip = mediumZoneAudioClip;

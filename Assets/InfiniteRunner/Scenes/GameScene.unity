@@ -1068,6 +1068,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkAudioZoneTimerInterval: 1000
   easyZoneAudioClip: {fileID: 8300000, guid: 795a05f6a6a534349acca88e037cebca, type: 3}
+  easyAudioClips:
+  - {fileID: 8300000, guid: 49ac9b2fe2e75c042a7b9b9ed784f4e3, type: 3}
+  - {fileID: 8300000, guid: 9f53a062c4991e7489784c2dfc0447aa, type: 3}
+  - {fileID: 8300000, guid: 5a7dc22134329f64dac28eab2dd3c2b0, type: 3}
+  - {fileID: 8300000, guid: 8881fee802a3c1641b382c9c1d74dd2a, type: 3}
+  - {fileID: 8300000, guid: daa3b87f89fbc6148bb5aeea341923c6, type: 3}
+  - {fileID: 8300000, guid: cb4e3d4dc7f35b84ababb1fa64b84cdd, type: 3}
+  mediumAudioClips:
+  - {fileID: 8300000, guid: cadea1f4b891e144dbb0eae7f12c7b5c, type: 3}
+  - {fileID: 8300000, guid: eb2a2ed2c1e743c45b94864e2a8a768d, type: 3}
+  - {fileID: 8300000, guid: 9af3a8cd8bdd8f245a60417f0a99687b, type: 3}
+  - {fileID: 8300000, guid: 0ae5fb57c2b8e6a48ac4915fc95c8686, type: 3}
+  - {fileID: 8300000, guid: 00c8d1fc3adf7dd47a13abc355a0ad95, type: 3}
+  - {fileID: 8300000, guid: 6b5e045fa653dfe47a2c14679afd2a91, type: 3}
+  easyToMediumTransitionAudioClip: {fileID: 8300000, guid: 9452ef94340530e4eb1681107e95b54e, type: 3}
+  mediumToEasyTransitionAudioClip: {fileID: 8300000, guid: a6dbca0dc522a5c48a55d833fa7c3673, type: 3}
   mediumZoneAudioClip: {fileID: 8300000, guid: 706a9571c0b242540aa4dc644b088f7b, type: 3}
   obstaclesController: {fileID: 194942995}
   playVolume: 0.25
@@ -1087,7 +1103,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.443
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

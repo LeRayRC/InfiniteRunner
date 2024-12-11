@@ -53,5 +53,5 @@
         "Temp/": true
     },
     "dotnet.preferCSharpExtension": true,
-    "dotnet.defaultSolution": "VideogameDesign.sln"
+    "dotnet.defaultSolution": "InfiniteRunner.sln"
 }
