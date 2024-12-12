@@ -1066,7 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0eeca879d181a34c9d4ea0df5d1957c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAudioZoneTimerInterval: 1000
+  checkAudioZoneTimerInterval: 500
   easyZoneAudioClip: {fileID: 8300000, guid: 795a05f6a6a534349acca88e037cebca, type: 3}
   easyAudioClips:
   - {fileID: 8300000, guid: 49ac9b2fe2e75c042a7b9b9ed784f4e3, type: 3}
@@ -1082,12 +1082,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0ae5fb57c2b8e6a48ac4915fc95c8686, type: 3}
   - {fileID: 8300000, guid: 00c8d1fc3adf7dd47a13abc355a0ad95, type: 3}
   - {fileID: 8300000, guid: 6b5e045fa653dfe47a2c14679afd2a91, type: 3}
+  audioClipIndex: 0
   easyToMediumTransitionAudioClip: {fileID: 8300000, guid: 9452ef94340530e4eb1681107e95b54e, type: 3}
   mediumToEasyTransitionAudioClip: {fileID: 8300000, guid: a6dbca0dc522a5c48a55d833fa7c3673, type: 3}
-  mediumZoneAudioClip: {fileID: 8300000, guid: 706a9571c0b242540aa4dc644b088f7b, type: 3}
+  isTransitioning: 0
   obstaclesController: {fileID: 194942995}
   playVolume: 0.25
   initVolumeProgress: 2
+  difficultyAudioToPlay: 0
   difficultyAudioPlaying: 0
 --- !u!82 &498204412
 AudioSource:
