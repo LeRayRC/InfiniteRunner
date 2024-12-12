@@ -69,6 +69,7 @@ public class BranchingAudioManager : MonoBehaviour
             currentTime = 0.0f;
             difficultyAudioPlaying = Difficulty.Difficulty_None;
             difficultyAudioToPlay = Difficulty.Difficulty_None;
+            audioSource.Stop();
         }
         
         

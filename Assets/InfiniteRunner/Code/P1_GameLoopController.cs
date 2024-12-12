@@ -38,6 +38,7 @@ public class P1_GameLoopController : MonoBehaviour
     public void PlayGame(){
         state_ = GameState.STARTED;
         Time.timeScale = 1.0f;
+        GameManager.instance.currentDifficultyAudioZone = Difficulty.Difficulty_None;
         GameManager.instance.playerKilled = false;
         // image_.gameObject.SetActive(false);
         score_.gameObject.SetActive(false);

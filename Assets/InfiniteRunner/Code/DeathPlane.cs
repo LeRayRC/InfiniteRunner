@@ -35,6 +35,7 @@ public class DeathPlane : MonoBehaviour
             oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
             oc_.ResetTerrainPosition();
             GameManager.instance.playerKilled = true;
+            GameManager.instance.currentDifficultyAudioZone = Difficulty.Difficulty_None;
 
             
         }
