@@ -18,19 +18,23 @@ public class BranchingAudioManager : MonoBehaviour
     public AudioClip easyZoneAudioClip;
     public List<AudioClip> easyAudioClips;
     public List<AudioClip> mediumAudioClips;
-    public int easyAudioClipIndex;
-    public int mediumAudioClipIndex;
-    public bool updateTrack;
+    public int audioClipIndex;
+    
+    //Idea. Cuando esté en dificultad facil comprobar is está transicionando.
+    //Eso significa que tiene que reproducir la transicion de facil a dificil
+    //El is transitioning se puede comprobar en el timer de esta propia clase
+    //ya que cada medio segundo comprueba la zona que se debe reproducir
     public AudioClip easyToMediumTransitionAudioClip;  
     public AudioClip mediumToEasyTransitionAudioClip;  
-    public AudioClip mediumZoneAudioClip;
+    public bool isTransitioning;
     
     public ObstaclesController obstaclesController;
     private float currentTime;
     private AudioSource audioSource;
     public float playVolume;
     public float initVolumeProgress;
-    
+
+    public Difficulty difficultyAudioToPlay;
     public Difficulty difficultyAudioPlaying;
     void Awake()
     {
@@ -51,9 +55,7 @@ public class BranchingAudioManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = 0.0f;
 
-        easyAudioClipIndex = 0;
-        mediumAudioClipIndex = 0;
-        updateTrack = false;
+        audioClipIndex = 0;
     }
 
     // Update is called once per frame
@@ -68,7 +70,7 @@ public class BranchingAudioManager : MonoBehaviour
         }
         else
         {
-            currentTime = 0.0f;
+            //currentTime = 0.0f;
         }
         
         switch (difficultyAudioPlaying) {
@@ -77,28 +79,38 @@ public class BranchingAudioManager : MonoBehaviour
                 break;
             case Difficulty.Difficulty_Easy:
                 // audioSource.clip = easyZoneAudioClip;
-                audioSource.clip = easyAudioClips[easyAudioClipIndex];
-                
                 if (!audioSource.isPlaying)
                 {
+                    if (isTransitioning)
+                    {
+                        //TO DO
+                    }
+                    audioSource.clip = easyAudioClips[audioClipIndex];
                     audioSource.Play();
-                    updateTrack = true;
-                    if(updateTrack){
-                        updateTrack = false;
-                        easyAudioClipIndex++;
-                        if(easyAudioClipIndex >= easyAudioClips.Count){
-                            easyAudioClipIndex = 0;
-                        }
+                    audioClipIndex++;
+                    if (audioClipIndex >= easyAudioClips.Count)
+                    {
+                        audioClipIndex = 0;
                     }
                 }
 
 
                 break;
             case Difficulty.Difficulty_Medium:
-                audioSource.clip = mediumZoneAudioClip;
                 if (!audioSource.isPlaying)
                 {
+                    if (isTransitioning)
+                    {
+                        //TO DO
+                    }
+                    
+                    audioSource.clip = mediumAudioClips[audioClipIndex];
                     audioSource.Play();
+                    audioClipIndex++;
+                    if (audioClipIndex >= easyAudioClips.Count)
+                    {
+                        audioClipIndex = 0;
+                    }
                 }
                 break;
             case Difficulty.Difficulty_Hard:
@@ -115,7 +127,13 @@ public class BranchingAudioManager : MonoBehaviour
         Debug.Log($"Timer elapsed at {DateTime.Now}");
         if (gameManager)
         {
-            difficultyAudioPlaying = gameManager.currentDifficultyAudioZone;
+            difficultyAudioToPlay = gameManager.currentDifficultyAudioZone;
+            if (difficultyAudioToPlay != difficultyAudioPlaying)
+            {
+                isTransitioning = true;
+            }
+
+            difficultyAudioPlaying = difficultyAudioToPlay;
         }
     }
     
