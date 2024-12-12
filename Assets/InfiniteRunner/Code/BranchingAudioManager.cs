@@ -84,14 +84,19 @@ public class BranchingAudioManager : MonoBehaviour
                     if (isTransitioning)
                     {
                         //TO DO
+                        audioSource.clip = mediumToEasyTransitionAudioClip;
+                        isTransitioning = false;
                     }
-                    audioSource.clip = easyAudioClips[audioClipIndex];
-                    audioSource.Play();
-                    audioClipIndex++;
-                    if (audioClipIndex >= easyAudioClips.Count)
+                    else
                     {
-                        audioClipIndex = 0;
+                        audioSource.clip = easyAudioClips[audioClipIndex];
+                        audioClipIndex++;
+                        if (audioClipIndex >= easyAudioClips.Count)
+                        {
+                            audioClipIndex = 0;
+                        }
                     }
+                    audioSource.Play();
                 }
 
 
@@ -101,16 +106,18 @@ public class BranchingAudioManager : MonoBehaviour
                 {
                     if (isTransitioning)
                     {
-                        //TO DO
+                        audioSource.clip = easyToMediumTransitionAudioClip;
+                        isTransitioning = false;
                     }
-                    
-                    audioSource.clip = mediumAudioClips[audioClipIndex];
+                    else {
+                        audioSource.clip = mediumAudioClips[audioClipIndex];
+                        audioClipIndex++;
+                        if (audioClipIndex >= easyAudioClips.Count)
+                        {
+                            audioClipIndex = 0;
+                        }
+                    }
                     audioSource.Play();
-                    audioClipIndex++;
-                    if (audioClipIndex >= easyAudioClips.Count)
-                    {
-                        audioClipIndex = 0;
-                    }
                 }
                 break;
             case Difficulty.Difficulty_Hard:
@@ -130,7 +137,10 @@ public class BranchingAudioManager : MonoBehaviour
             difficultyAudioToPlay = gameManager.currentDifficultyAudioZone;
             if (difficultyAudioToPlay != difficultyAudioPlaying)
             {
-                isTransitioning = true;
+                if (difficultyAudioPlaying != Difficulty.Difficulty_None)
+                {
+                    isTransitioning = true;
+                }
             }
 
             difficultyAudioPlaying = difficultyAudioToPlay;
