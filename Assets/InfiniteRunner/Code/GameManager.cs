@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public bool gameRunning;
     public bool layeringEnabled;
     public bool branchingEnabled;
+    public bool playerKilled;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -37,6 +38,7 @@ public class GameManager : MonoBehaviour
         gameRunning = false;
         layeringEnabled = true;
         branchingEnabled = true;
+        playerKilled = false;
     }
 
     

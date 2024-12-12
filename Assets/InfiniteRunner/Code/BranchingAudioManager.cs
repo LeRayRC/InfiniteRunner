@@ -61,16 +61,21 @@ public class BranchingAudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (!GameManager.instance.branchingEnabled) return;
+        if (GameManager.instance.playerKilled)
+        {
+            audioSource.volume = 0.0f;
+            currentTime = 0.0f;
+            difficultyAudioPlaying = Difficulty.Difficulty_None;
+            difficultyAudioToPlay = Difficulty.Difficulty_None;
+        }
+        
         
         if (audioSource.isPlaying)
         {
             currentTime += Time.deltaTime;
             audioSource.volume = Mathf.Lerp(0.0f, playVolume, currentTime / initVolumeProgress);
-        }
-        else
-        {
-            //currentTime = 0.0f;
         }
         
         switch (difficultyAudioPlaying) {

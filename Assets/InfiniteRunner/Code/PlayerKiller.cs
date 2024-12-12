@@ -27,8 +27,8 @@ public class PlayerKiller : MonoBehaviour
             oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
             oc_.ResetTerrainPosition();
             oc_.timePlaying = 0.0f;
+            GameManager.instance.playerKilled = true;
 
-            
         }
     }
 }

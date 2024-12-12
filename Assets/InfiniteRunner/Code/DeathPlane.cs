@@ -34,6 +34,7 @@ public class DeathPlane : MonoBehaviour
             oc_.holyTerrain_.transform.position = oc_.holyTerrainInitPos;
             oc_.holyTerrain_.GetComponent<HolyTerrainController>().Init();
             oc_.ResetTerrainPosition();
+            GameManager.instance.playerKilled = true;
 
             
         }
